@@ -7,28 +7,23 @@
     import { fade } from 'svelte/transition';
     import type { Answer } from '../lib/types';
   
-    console.log('SurveyQuestion script executing');
+    // console.log('SurveyQuestion script executing');
 
-    onMount(() => {
-        console.log('SurveyQuestion mounted');
-        console.log('Current assessment state:', $assessment);
-        console.log('Current question index:', $assessment.currentQuestionIndex);
-        console.log('Current question:', questions[$assessment.currentQuestionIndex]);
-    });
+    // onMount(() => {
+    //     console.log('SurveyQuestion mounted');
+    //     console.log('Current assessment state:', $assessment);
+    //     console.log('Current question index:', $assessment.currentQuestionIndex);
+    //     console.log('Current question:', questions[$assessment.currentQuestionIndex]);
+    // });
 
     // Reactive declarations with debug
-    $: {
-        console.log('Computing currentQuestion, index:', $assessment.currentQuestionIndex);
-        currentQuestion = questions[$assessment.currentQuestionIndex];
-        console.log('Computed currentQuestion:', currentQuestion);
-    }
+    $: { currentQuestion = questions[$assessment.currentQuestionIndex]; }
     $: progress = (($assessment.currentQuestionIndex) / questions.length) * 100;
   
     let currentQuestion = questions[0]; // Give it an initial value
   
     // Handle option selection
     function handleOptionSelect(value: number) {
-      console.log('Option selected:', value);
       const answer: Answer = {
         questionId: currentQuestion.id,
         value,
@@ -37,13 +32,6 @@
       assessment.addAnswer(answer);
     }
 </script>
-
-<!-- Add a debug div at the top -->
-<div class="debug-info">
-    Question Index: {$assessment.currentQuestionIndex}
-    <br />
-    Question Text: {currentQuestion?.text || 'No question'}
-</div>
 
 <div class="bg-slate-50 flex items-center justify-center p-4">
   <div class="bg-slate-50 flex items-center justify-center p-4">
@@ -94,14 +82,3 @@
   </div>
 </div>
 
-<style>
-    .debug-info {
-        position: fixed;
-        top: 30px;  /* Below the App.svelte debug info */
-        left: 0;
-        background: #fee;
-        padding: 5px;
-        z-index: 1000;
-        font-size: 12px;
-    }
-</style>

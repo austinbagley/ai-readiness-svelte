@@ -16,32 +16,17 @@
 </script>
 
 <main class="min-h-screen bg-slate-50">
-  <div class="debug-info">Current stage: {$currentStage}</div>
+ 
   {#key $currentStage}
     {#if $currentStage === 'initial'}
       <InitialForm />
     {:else if $currentStage === 'survey'}
-      <div class="debug-container">
-        Attempting to render SurveyQuestion
+      
         <SurveyQuestion />
-      </div>
+      
     {:else}
       <Results />
     {/if}
   {/key}
 </main>
 
-<style>
-  .debug-info {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: #eee;
-    padding: 5px;
-    z-index: 1000;
-  }
-  .debug-container {
-    border: 2px solid red;
-    padding: 10px;
-  }
-</style>

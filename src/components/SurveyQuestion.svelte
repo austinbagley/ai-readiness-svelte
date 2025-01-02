@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { assessment, assessmentActions } from '../lib/stores';
+    import { assessment } from '../lib/stores';
     import { questions } from '../data/questions';
     import Card from './ui/Card.svelte';
     import Progress from './ui/Progress.svelte';
@@ -17,7 +17,7 @@
         value,
         component: currentQuestion.component
       };
-      assessmentActions.addAnswer(answer);
+      assessment.addAnswer(answer);
     }
   </script>
   

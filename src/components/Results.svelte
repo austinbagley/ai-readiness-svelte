@@ -1,6 +1,7 @@
 <script lang="ts">
+    import { onMount, onDestroy } from 'svelte';
     import type { ChartData, ChartOptions } from 'chart.js';
-    import { assessment, assessmentActions } from '../lib/stores';
+    import { assessment } from '../lib/stores';
     import { INDUSTRY_AVERAGES, ASSESSMENT_COMPONENTS } from '../data/questions';
     import Card from './ui/Card.svelte';
     import Button from './ui/Button.svelte';
@@ -15,6 +16,29 @@
       Tooltip,
       Legend
     } from 'chart.js';
+    import type { ValidIndustry } from '../data/questions';
+
+
+    let chart: any = null;
+
+    onMount(() => {
+      // Register Chart.js components
+      ChartJS.register(
+        RadialLinearScale,
+        PointElement,
+        LineElement,
+        Filler,
+        Tooltip,
+        Legend
+      );
+    });
+
+    onDestroy(() => {
+      if (chart) {
+        chart.destroy();
+      }
+    });
+   
 
     // Define the chart data type
     type RadarChartData = ChartData<'radar', number[]>;
@@ -35,7 +59,8 @@
   
     // Calculate component scores
     $: componentScores = calculateComponentScores($assessment.answers);
-    $: industryAverages = INDUSTRY_AVERAGES[$assessment.userData?.industry || 'Other'];
+    $: currentIndustry = ($assessment.userData?.industry as ValidIndustry) || 'Other';
+    $: industryAverages = INDUSTRY_AVERAGES[currentIndustry];
     $: overallScore = calculateOverallScore(componentScores);
   
     // Calculate scores for each component
@@ -92,16 +117,17 @@
     // Type the chart options
     $: chartOptions = {
         scales: {
-        r: {
-            beginAtZero: true,
-            max: 5,
-            min: 0,
-            ticks: {
-            stepSize: 1
-            }
-        }
+          r: {
+              beginAtZero: true,
+              max: 5,
+              min: 0,
+              ticks: {
+              stepSize: 1
+              }
+          }
         },
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        responsive: true
     } satisfies ChartOptions<'radar'>;
   
     // Generate recommendations based on scores
@@ -156,7 +182,7 @@
             </Button>
             <Button
               variant="outline"
-              on:click={() => assessmentActions.resetAssessment()}
+              on:click={() => assessment.reset()}
               class="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
             >
               <RotateCcw class="mr-2 h-4 w-4" />

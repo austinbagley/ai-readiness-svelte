@@ -7,6 +7,7 @@ export interface Question {
       label: string;
     }[];
   }
+
   
   export const questions: Question[] = [
     {
@@ -132,7 +133,23 @@ export interface Question {
   ];
   
   // Keep the industry averages in same file for simplicity
-  export const INDUSTRY_AVERAGES = {
+
+
+  export const VALID_INDUSTRIES = [
+    'Technology',
+    'Financial Services',
+    'Other'
+  ] as const;
+
+  export type ValidIndustry = typeof VALID_INDUSTRIES[number];
+
+  export const INDUSTRY_AVERAGES: Record<ValidIndustry, {
+    Strategy: number;
+    Data: number;
+    Infrastructure: number;
+    Talent: number;
+    Governance: number;
+  }> = {
     'Technology': {
       Strategy: 4.2,
       Data: 4.5,

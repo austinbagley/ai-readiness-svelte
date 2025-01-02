@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { assessment, assessmentActions } from '../lib/stores';
+  import { assessment } from '../lib/stores';
   import Card from '././ui/Card.svelte';
   import Button from '././ui/Button.svelte';
   import Input from '././ui/Input.svelte';
@@ -29,7 +29,7 @@
 
   // Form submission handler
   function handleSubmit() {
-    assessmentActions.updateUserData(formData);
+    assessment.updateUserData(formData);
   }
 </script>
 

@@ -29,6 +29,7 @@
 
   // Form submission handler
   function handleSubmit() {
+    console.log('submit handled yo')
     assessment.updateUserData(formData);
   }
 </script>

@@ -1,43 +1,47 @@
 <script lang="ts">
-  import { onMount, afterUpdate } from 'svelte';
+  import { onMount } from 'svelte';
   import { currentStage, assessment } from './lib/stores';
   import InitialForm from './components/InitialForm.svelte';
   import SurveyQuestion from './components/SurveyQuestion.svelte';
   import Results from './components/Results.svelte';
 
-  let mounted = false;
-
   onMount(() => {
-    mounted = true;
-    console.log('App.svelte mounted')
-    console.log('Current stage:', $currentStage)
+    console.log('App mounted, current stage:', $currentStage);
   });
 
-  afterUpdate(() => {
-    if (mounted) {
-      // Force a re-render of the entire app container
-      const appElement = document.getElementById('app-4dfkr3');
-      if (appElement) {
-        const display = appElement.style.display;
-        appElement.style.opacity = '0';
-        setTimeout(() => {
-          if (appElement) {
-            appElement.style.opacity = '1';
-          }
-        }, 50);
-      }
-    }
-  });
+  $: {
+    console.log('Stage changed to:', $currentStage);
+    console.log('Current assessment state:', $assessment);
+  }
 </script>
 
-<main class="min-h-screen bg-slate-50 transition-opacity duration-200">
+<main class="min-h-screen bg-slate-50">
+  <div class="debug-info">Current stage: {$currentStage}</div>
   {#key $currentStage}
     {#if $currentStage === 'initial'}
       <InitialForm />
     {:else if $currentStage === 'survey'}
-      <SurveyQuestion />
+      <div class="debug-container">
+        Attempting to render SurveyQuestion
+        <SurveyQuestion />
+      </div>
     {:else}
       <Results />
     {/if}
   {/key}
 </main>
+
+<style>
+  .debug-info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #eee;
+    padding: 5px;
+    z-index: 1000;
+  }
+  .debug-container {
+    border: 2px solid red;
+    padding: 10px;
+  }
+</style>

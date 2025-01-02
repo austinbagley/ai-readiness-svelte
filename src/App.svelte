@@ -22,7 +22,7 @@
       <InitialForm />
     {:else if $currentStage === 'survey'}
       <div class="debug-container">
-        &nbsp;
+        {@html '<!-- survey container -->'}
         <SurveyQuestion />
       </div>
     {:else}

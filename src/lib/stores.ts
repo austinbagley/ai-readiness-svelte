@@ -29,28 +29,39 @@ export const assessment = createLocalStore<AssessmentData>('aiAssessmentData', {
 // Actions (similar to your previous hook methods)
 export const assessmentActions = {
     updateUserData: (userData: UserData) => {
-        assessment.update(state => ({
-            ...state,
-            userData
-        }));
+        assessment.update(state => {
+            const newState = {
+                ...state,
+                userData
+            };
+            // Force a store update
+            assessment.set(newState);
+            return newState;
+        });
     },
 
     addAnswer: (answer: Answer) => {
-        assessment.update(state => ({
-            ...state,
-            answers: [...state.answers, answer],
-            currentQuestionIndex: state.currentQuestionIndex + 1,
-            isComplete: state.currentQuestionIndex + 1 === questions.length
-        }));
+        assessment.update(state => {
+            const newState = {
+                ...state,
+                answers: [...state.answers, answer],
+                currentQuestionIndex: state.currentQuestionIndex + 1,
+                isComplete: state.currentQuestionIndex + 1 === questions.length
+            };
+            // Force a store update
+            assessment.set(newState);
+            return newState;
+        });
     },
-
     resetAssessment: () => {
-        assessment.set({
+        const newState = {
             userData: null,
             answers: [],
             currentQuestionIndex: 0,
             isComplete: false
-        });
+        };
+        assessment.set(newState);
+        return newState;
     }
 };
 

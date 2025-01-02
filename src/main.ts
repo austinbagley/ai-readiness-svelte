@@ -1,8 +1,16 @@
 import './app.css'
 import App from './App.svelte'
 
-const app = new App({
-  target: document.getElementById('app-4dfkr3') as HTMLElement,
-})
+const createApp = () => {
+  let app: App | undefined
 
-export default app
+  document.addEventListener('DOMContentLoaded', () => {
+    app = new App({
+      target: document.getElementById('app-4dfkr3') as HTMLElement,
+})
+  })
+
+  return app
+}
+
+export default createApp()

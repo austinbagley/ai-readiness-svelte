@@ -22,7 +22,7 @@
       <InitialForm />
     {:else if $currentStage === 'survey'}
       <div class="debug-container">
-        Attempting to render SurveyQuestion
+        &nbsp;
         <SurveyQuestion />
       </div>
     {:else}
@@ -40,8 +40,5 @@
     padding: 5px;
     z-index: 1000;
   }
-  .debug-container {
-    border: 2px solid red;
-    padding: 10px;
-  }
+  
 </style>

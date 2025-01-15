@@ -1,3 +1,5 @@
+<!-- Results.svelte -->
+
 <script lang="ts">
     import { onMount, onDestroy } from 'svelte';
     import type { ChartData, ChartOptions } from 'chart.js';

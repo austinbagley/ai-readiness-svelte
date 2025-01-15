@@ -1,3 +1,5 @@
+<!-- SurveyQuestions.svelte -->
+
 <script lang="ts">
     import { onMount } from 'svelte';
     import { assessment } from '../lib/stores';
@@ -6,6 +8,7 @@
     import Progress from './ui/Progress.svelte';
     import { fade } from 'svelte/transition';
     import type { Answer } from '../lib/types';
+    import { currentStage } from '../lib/stores';
   
     console.log('SurveyQuestion script executing');
 
@@ -35,6 +38,10 @@
         component: currentQuestion.component
       };
       assessment.addAnswer(answer);
+
+      if ($assessment.currentQuestionIndex === questions.length - 1) {
+      currentStage.set('userForm');
+  }
     }
 </script>
 

@@ -39,8 +39,11 @@ function createAssessmentStore() {
 
 export const assessment = createAssessmentStore();
 
-export const currentStage = derived(assessment, $assessment => {
-  if (!$assessment.userData) return 'initial';
-  if (!$assessment.isComplete) return 'survey';
-  return 'results';
-});
+// export const currentStage = derived(assessment, $assessment => {
+//   if (!$assessment.userData) return 'initial';
+//   if (!$assessment.isComplete) return 'survey';
+//   return 'results';
+// });
+
+type Stage = 'intro' | 'survey' | 'userForm' | 'results';
+export const currentStage = writable<Stage>('intro');

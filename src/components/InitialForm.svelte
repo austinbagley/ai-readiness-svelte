@@ -1,3 +1,5 @@
+<!-- InitialForm.svelte -->
+
 <script lang="ts">
   import { assessment } from '../lib/stores';
   import Card from '././ui/Card.svelte';
@@ -7,6 +9,7 @@
   import Select from '././ui/Select.svelte';
   import { ChevronRight } from 'lucide-svelte';
   import type { UserData } from '../lib/types';
+  import { currentStage } from '../lib/stores';
 
   // Form data with type safety
   let formData: UserData = {
@@ -29,9 +32,10 @@
 
   // Form submission handler
   function handleSubmit() {
-    console.log('submit handled yo')
     assessment.updateUserData(formData);
+    currentStage.set('results');
   }
+
 </script>
 
 <div class="min-h-screen bg-slate-50 flex items-center justify-center p-4">

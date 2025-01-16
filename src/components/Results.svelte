@@ -19,6 +19,7 @@
       Legend
     } from 'chart.js';
     import type { ValidIndustry } from '../data/questions';
+    import { currentStage } from '../lib/stores';
 
 
     let chart: any = null;
@@ -149,6 +150,11 @@
       // For now, just print the page
       window.print();
     }
+
+    function handleReset() {
+      assessment.reset();
+      currentStage.set('intro');
+    }
   </script>
   
   <div class="min-h-screen bg-slate-50 flex items-center justify-center p-4">
@@ -184,7 +190,7 @@
             </Button>
             <Button
               variant="outline"
-              on:click={() => assessment.reset()}
+              on:click={handleReset}
               class="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
             >
               <RotateCcw class="mr-2 h-4 w-4" />

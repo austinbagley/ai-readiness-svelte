@@ -94,7 +94,7 @@
           </div>
 
           <Button type="submit" class="w-full">
-            Start Assessment
+            Get detailed results
             <ChevronRight class="ml-2 h-4 w-4" />
           </Button>
         </form>

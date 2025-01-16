@@ -39,7 +39,7 @@
       };
       assessment.addAnswer(answer);
 
-      if ($assessment.currentQuestionIndex === questions.length - 1) {
+      if ($assessment.currentQuestionIndex === questions.length) {
       currentStage.set('userForm');
   }
     }

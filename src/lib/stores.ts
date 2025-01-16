@@ -33,6 +33,7 @@ function createAssessmentStore() {
         currentQuestionIndex: 0,
         isComplete: false
       });
+
     }
   };
 }
